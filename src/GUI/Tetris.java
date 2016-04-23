@@ -12,16 +12,15 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.AbstractAction;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
+import javax.swing.KeyStroke;
 import javax.swing.Timer;
-
-
 
 public class Tetris extends JFrame {
 	
@@ -58,22 +57,30 @@ public class Tetris extends JFrame {
 	     */
 	    count = 0;
 	    timeLabel = new JLabel();
+	    timeLabel.setFocusable(false);
 	    helpLabel = new JLabel("Press 'h' for help");
 	  
 	    timer = new Timer(2000, new timerAction());
 	    timer.start();
+	    
 	    timerPanel = new JPanel();
+	    timerPanel.setFocusable(false);
+	    
 	    timerPanel.add(timeLabel, BorderLayout.EAST );
 	    timerPanel.add(helpLabel, BorderLayout.WEST);
 	    container.add(timerPanel, BorderLayout.PAGE_START);
 	    
 	    // Overall layout of the GUI
 	    guiPanel = new JPanel();
+	    guiPanel.setFocusable(false);
+	    
 	    guiPanel.setLayout((LayoutManager) new BoxLayout(guiPanel, BoxLayout.PAGE_AXIS));
 	    container.add(guiPanel, BorderLayout.AFTER_LAST_LINE);
 	    
 	    // Add the game grid that will contain the pieces
 	    gameGrid = new JPanel();
+	    gameGrid.setFocusable(false);
+	    
 	    board = new GridLayout(ROWS , COLS);
 	    gameGrid.setLayout(board);
 	    positions = new JButton[ROWS][COLS];
@@ -83,6 +90,7 @@ public class Tetris extends JFrame {
 	    		positions[i][j] = new JButton();
 	    		positions[i][j].setBackground(Color.black);
 	    		positions[i][j].setVisible(true);
+	    		positions[i][j].setFocusable(false);
 	    		gameGrid.add(positions[i][j]);
 	    	}
 	
@@ -90,9 +98,15 @@ public class Tetris extends JFrame {
 	    gameGrid.setVisible(true);
 	    
 	    
+	    this.addKeyListener(new buttonAction());
+//	    timerPanel.getInputMap().put(KeyStroke.getKeyStroke("h"),
+//	    		new AbstractAction() {
+//	        public void actionPerformed(ActionEvent e) {
+//				System.out.println("Pressed " );
+//	        }
+//	    });
 	    setSize(700,700);
 	    setVisible( true );
-	    addKeyListener(new buttonAction());
 	}
 	
 	public static void main(String[] args) {
@@ -110,7 +124,6 @@ public class Tetris extends JFrame {
     		timeLabel.setText(count.toString());
     		count += 1;
     	}
-		
 	}
 	
 	private class buttonAction extends KeyAdapter{
@@ -118,10 +131,13 @@ public class Tetris extends JFrame {
 			super();
 		}
 		@Override
-		public void keyPressed(KeyEvent e) {
-			if( e.getKeyChar() == 'h' ){
+		public void keyTyped(KeyEvent e) {
+			System.out.println("Pressed " + e.getKeyChar()  );
+
+			switch( e.getKeyChar()){
+			case 'h' : case 'H':
+				System.out.println("In if statement " + e.getKeyChar() );
 				timer.stop();
-				
 				
 				 JOptionPane.showMessageDialog(null, 
 						"H for help\n"+
@@ -130,8 +146,20 @@ public class Tetris extends JFrame {
 						JOptionPane.INFORMATION_MESSAGE
 						);
 				 timer.start();
+				 break;
+			default:
+				break;
 			}
 		}
-	
+		
+		@Override
+		public void keyPressed(KeyEvent e) {
+			switch( e.getKeyCode()){
+			case KeyEvent.VK_ESCAPE:
+				timer.stop();
+				System.exit(0);
+			}
+
+		}
 	}
 }
