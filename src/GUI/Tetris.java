@@ -172,6 +172,16 @@ public class Tetris extends JFrame {
 				helpLabel.setText("Press 'h' for help");
 				timer.start();
 				break;
+			case KeyEvent.VK_RIGHT:
+				timer.stop();
+				drawer.Right();
+				timer.start();
+				break;
+			case KeyEvent.VK_LEFT:
+				timer.stop();
+				drawer.Left();
+				timer.start();
+				break;
 			}
 
 		}

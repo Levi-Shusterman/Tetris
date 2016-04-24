@@ -6,6 +6,8 @@ import java.util.Vector;
 
 import javax.swing.JComponent;
 
+import com.sun.glass.events.KeyEvent;
+
 import Tetronimoes.*;
 
 public class TetronimoDrawer {
@@ -141,5 +143,52 @@ public class TetronimoDrawer {
 		}
 		
 		return true;
+	}
+	
+
+	/**
+	 * Shift the piece right
+	 */
+	public void Right() {
+		if( currentCol + 1 + currentMax.Col < COLS ){
+			
+			/*
+			 * if you can shift right
+			 */
+			currentCol++;
+			if( canMove()){
+				
+				// undraw first
+				currentCol--;
+				undraw();
+				
+				// then shift and draw
+				currentCol++;
+				draw();
+			}
+		}
+	}
+	
+	/**
+	 * Shift the piece left
+	 */
+	public void Left() {
+		if( currentCol != 0){
+			
+			/*
+			 * if you can shift left
+			 */
+			currentCol--;
+			if( canMove()){
+				
+				// undraw first
+				currentCol++;
+				undraw();
+				
+				// then shift and draw
+				currentCol--;
+				draw();
+			}
+		}
 	}
 }
