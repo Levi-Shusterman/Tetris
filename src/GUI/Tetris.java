@@ -48,6 +48,9 @@ public class Tetris extends JFrame {
 	private Timer timer; 
 	Integer count;
 	
+	
+	TetronimoDrawer drawer;
+	
 	public Tetris(){
 		super("Tetris");
 		container = getContentPane();
@@ -99,13 +102,9 @@ public class Tetris extends JFrame {
 	    
 	    
 	    this.addKeyListener(new buttonAction());
-//	    timerPanel.getInputMap().put(KeyStroke.getKeyStroke("h"),
-//	    		new AbstractAction() {
-//	        public void actionPerformed(ActionEvent e) {
-//				System.out.println("Pressed " );
-//	        }
-//	    });
-	    setSize(700,700);
+	    
+	    drawer = new TetronimoDrawer(positions, ROWS, COLS);
+	    
 	    setVisible( true );
 	}
 	
@@ -123,6 +122,7 @@ public class Tetris extends JFrame {
     	public void actionPerformed(ActionEvent e) {
     		timeLabel.setText(count.toString());
     		count += 1;
+    		drawer.Next();
     	}
 	}
 	
