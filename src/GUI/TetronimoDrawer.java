@@ -85,7 +85,12 @@ public class TetronimoDrawer {
 	 * check if a row has been filled up.
 	 */
 	private void resetTetrisPiece(){
-		Tet = Factory.getNewTetronimo();
+		try {
+			Tet = Factory.getNewTetronimo();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		currentPos = Tet.getCurrentPos();
 		currentMax = Tet.getMaxExtent();
 		currentStart = Tet.getStartPos();
@@ -262,10 +267,21 @@ public class TetronimoDrawer {
 	 * @return false if cannot be, true if can be
 	 */
 	private boolean canMoveDown() {
+		if( currentRow + 1 + currentMax.Row > ROWS - 1)
+			return false;
+		
 		for( Position pos : currentPos){
 			
-			if( Filled[currentRow + 1 + pos.Row][currentCol + pos.Col])
-				return false;
+			try{
+				if( Filled[currentRow + 1 + pos.Row][currentCol + pos.Col])
+					return false;
+			}catch( NullPointerException | ArrayIndexOutOfBoundsException ex){
+				System.out.println("CurrentRow: " + currentRow);
+				System.out.println("CurrentCol: " + currentCol);
+				
+				System.out.println("TetMaxRow: " + currentMax.Row);
+				System.out.println("TetMaxCol: " + currentMax.Col);
+			}
 		}
 		
 		return true;
