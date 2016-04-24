@@ -120,6 +120,27 @@ public class TetronimoDrawer {
 	}
 	
 	/**
+	 * Rotate the tetronimo piece clockwise
+	 */
+	public void Rotate(){
+		try {
+			available.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		undraw();
+
+		Tet.rotate();
+		currentPos = Tet.getCurrentPos();
+		currentMax = Tet.getMaxExtent();
+		
+		draw();
+		available.release();
+	}
+	
+	/**
 	 * Fill the current spot the tetronimo is at,
 	 * indicating it is done moving
 	 */
@@ -242,21 +263,6 @@ public class TetronimoDrawer {
 			currentCol++;
 			draw();
 		}
-		/*
-		 * Check if at the bottom
-		 */
-//		if( currentMax.Row + currentRow == ROWS - 1){
-//			atBottom = true;
-//		}
-//		
-//		/*
-//		 * Check if about to hit another piece
-//		 */
-//		if(!atBottom){
-//			if( !canMoveDown() ){
-//				atBottom = true;
-//			}
-//		}
 		
 		available.release();
 	}
@@ -296,22 +302,7 @@ public class TetronimoDrawer {
 			currentCol--;
 			draw();
 		}
-		/*
-		 * Check if at the bottom
-		 */
-//		if( currentMax.Row + currentRow == ROWS - 1){
-//			atBottom = true;
-//		}
-//		
-//		/*
-//		 * Check if about to hit another piece
-//		 */
-//		if(!atBottom){
-//			if( !canMoveDown() ){
-//				atBottom = true;
-//			}
-//		}
-		
+
 		available.release();
 	}
 }

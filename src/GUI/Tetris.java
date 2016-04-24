@@ -182,6 +182,9 @@ public class Tetris extends JFrame {
 				drawer.Left();
 //				timer.start();
 				break;
+			case KeyEvent.VK_UP:
+				drawer.Rotate();
+				break;
 			}
 
 		}
