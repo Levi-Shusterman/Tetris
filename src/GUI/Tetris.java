@@ -49,6 +49,7 @@ public class Tetris extends JFrame {
 	Integer count;
 	
 	
+	
 	TetronimoDrawer drawer;
 	
 	public Tetris(){

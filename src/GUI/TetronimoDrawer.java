@@ -34,6 +34,8 @@ public class TetronimoDrawer {
 	
 	private Semaphore available;
 	
+	int[] rowComplete;
+
 	TetronimoDrawer(JComponent[][] array, int rows, int cols){
 		available = new Semaphore(1);
 		Array = array;
@@ -48,6 +50,9 @@ public class TetronimoDrawer {
 		for( int i = 0; i < ROWS;i++)
 			for(int j = 0; j < COLS; j++)
 				Filled[i][j] = false;
+		
+		rowComplete = new int[ROWS];
+		Arrays.fill(rowComplete, 0);
 	}
 	
 	/**
