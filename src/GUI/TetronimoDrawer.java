@@ -84,12 +84,6 @@ public class TetronimoDrawer {
 		}
 		
 		
-		/*
-		 * Now you can move down
-		 */
-		undraw();
-		currentRow++;
-		draw();
 		
 		/*
 		 * Check if at the bottom
@@ -107,6 +101,21 @@ public class TetronimoDrawer {
 			}
 		}
 		
+		/*
+		 * Since you're at the bottom just return
+		 */
+		if( atBottom){
+			available.release();
+			return;
+		}
+		
+		/*
+		 * Now you can move down
+		 */
+		undraw();
+		currentRow++;
+		draw();
+
 		available.release();
 	}
 	
@@ -171,9 +180,20 @@ public class TetronimoDrawer {
 	 * @return false if cannot be, true if can be
 	 */
 	private boolean canMoveSide(int offset) {
+		
+		// Check that you won't overflow if your shifting right
+		if( offset > 0 &&
+				currentCol + currentMax.Col + offset > COLS - 1 	)
+			// Can't move to the side
+			{ return false; }
+		
+		// Check that you won't underflow if you're shifting left
+		if( offset < 0 && currentCol + offset < 0)
+			{ return false;}
+		
 		for( Position pos : currentPos){
 			
-			if( Filled[currentRow + pos.Row][currentCol + pos.Col])
+			if( Filled[currentRow + pos.Row][currentCol + offset + pos.Col])
 				return false;
 		}
 		
@@ -193,32 +213,54 @@ public class TetronimoDrawer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if( currentCol + 1 + currentMax.Col < COLS ){
+		
+		if( atBottom){
+			fill();
 			
-			/*
-			 * if you can shift right
-			 */
+			resetTetrisPiece();
+			
+			atBottom = false;
+			available.release();
+			return;
+		}
+		
+		
+		/*
+		 * if you can shift right
+		 */
+		if( canMoveSide(1)){
+			
+			// undraw first
+			undraw();
+			
+			// then shift and draw
 			currentCol++;
-			if( canMoveSide(1)){
-				
-				// undraw first
-				currentCol--;
-				undraw();
-				
-				// then shift and draw
-				currentCol++;
-				draw();
-				if( !canMoveDown())
-					fill();
+			draw();
+		}
+		/*
+		 * Check if at the bottom
+		 */
+//		if( currentMax.Row + currentRow == ROWS - 1){
+//			atBottom = true;
+//		}
+//		
+//		/*
+//		 * Check if about to hit another piece
+//		 */
+		if(!atBottom){
+			if( !canMoveDown() ){
+				atBottom = true;
 			}
 		}
+		
 		available.release();
 	}
+	
 	
 	/**
 	 * Shift the piece left
 	 */
-	public void Left() {
+	public void Left(){
 		try {
 			available.acquire();
 		} catch (InterruptedException e) {
@@ -226,25 +268,45 @@ public class TetronimoDrawer {
 			e.printStackTrace();
 		}
 		
-		if( currentCol != 0){
+		if( atBottom){
+			fill();
 			
-			/*
-			 * if you can shift left
-			 */
+			resetTetrisPiece();
+			
+			atBottom = false;
+			available.release();
+			return;
+		}
+		
+		
+		/*
+		 * if you can shift left
+		 */
+		if( canMoveSide(-1)){
+			
+			// undraw first
+			undraw();
+			
+			// then shift and draw
 			currentCol--;
-			if( canMoveSide(-1)){
-				
-				// undraw first
-				currentCol++;
-				undraw();
-				
-				// then shift and draw
-				currentCol--;
-				draw();
-				if( !canMoveDown())
-					fill();
+			draw();
+		}
+		/*
+		 * Check if at the bottom
+		 */
+//		if( currentMax.Row + currentRow == ROWS - 1){
+//			atBottom = true;
+//		}
+//		
+//		/*
+//		 * Check if about to hit another piece
+//		 */
+		if(!atBottom){
+			if( !canMoveDown() ){
+				atBottom = true;
 			}
 		}
+		
 		available.release();
 	}
 }
