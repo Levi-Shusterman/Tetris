@@ -12,7 +12,7 @@ public class TBlock extends Tetronimo{
 		/*
 		 * 0,0  0,1  0,2
 		 * 1,0  1,1  1,2
-		 * 2,0  1,2  2,2
+		 * 2,0  2,1  2,2
 		 * 
 		 */
 		Left= new Vector<Position>();
@@ -77,6 +77,9 @@ public class TBlock extends Tetronimo{
 		maxLower = 1;
 		maxRight = 2;
 		
+		startRow = 0;
+		startCol = 0;
+		
 	}
 
 	
@@ -85,6 +88,9 @@ public class TBlock extends Tetronimo{
 		Current = Right;
 		maxLower = 2;
 		maxRight = 2;
+		
+		startRow = 0;
+		startCol = 1;
 	}
 
 	@Override
@@ -94,6 +100,8 @@ public class TBlock extends Tetronimo{
 		maxLower = 2;
 		maxRight = 2;
 		
+		startRow = 1;
+		startCol = 0;
 	}
 
 	@Override
@@ -103,6 +111,15 @@ public class TBlock extends Tetronimo{
 		maxLower = 2;
 		maxRight = 1;
 		
+		startRow = 0;
+		startCol = 0;
+		
+	}
+
+	@Override
+	public Position getStartPos() {
+		// TODO Auto-generated method stub
+		return new Position(startRow, startCol);
 	}
 
 	

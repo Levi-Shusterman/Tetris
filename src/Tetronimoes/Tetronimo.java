@@ -19,8 +19,14 @@ public abstract class Tetronimo {
 	
 	// Current position and information
 	Vector<Position> Current;
+	
+	// Maximum extent of the block in its cubic position
 	int maxLower;
 	int maxRight;
+	
+	// Beginning points of the block
+	int startRow;
+	int startCol;
 	
 	Tetronimo() {
 	}
@@ -30,6 +36,9 @@ public abstract class Tetronimo {
 	
 	// get the maximum extents of the piece
 	public abstract Position getMaxExtent();
+	
+	// get the positions of where the shape starts out
+	public abstract Position getStartPos();
 	
 	// rotates and changes the configuration to 
 	// the ones listed below

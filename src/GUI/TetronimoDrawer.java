@@ -22,19 +22,24 @@ public class TetronimoDrawer {
 	
 	int currentRow;
 	int currentCol;
+	int[] rowComplete;
 	
 	/*
 	 * Factory parameters
 	 */
 	boolean 		 atBottom;
 	TetronimoFactory Factory;
+
+	/*
+	 * Tetronimo parameters
+	 */
 	Tetronimo 		 Tet;
 	Vector<Position> currentPos;
 	Position 		 currentMax;
+	Position 	     currentStart;
 	
 	private Semaphore available;
 	
-	int[] rowComplete;
 
 	TetronimoDrawer(JComponent[][] array, int rows, int cols){
 		available = new Semaphore(1);
@@ -62,6 +67,7 @@ public class TetronimoDrawer {
 		Tet = Factory.getNewTetronimo();
 		currentPos = Tet.getCurrentPos();
 		currentMax = Tet.getMaxExtent();
+		currentStart = Tet.getStartPos();
 		
 		currentRow = -1;
 		currentCol = (COLS/2) - 1;
@@ -140,6 +146,7 @@ public class TetronimoDrawer {
 		Tet.rotate();
 		currentPos = Tet.getCurrentPos();
 		currentMax = Tet.getMaxExtent();
+		currentStart = Tet.getStartPos();
 		
 		draw();
 		available.release();
@@ -219,7 +226,7 @@ public class TetronimoDrawer {
 			{ return false; }
 		
 		// Check that you won't underflow if you're shifting left
-		if( offset < 0 && currentCol + offset < 0)
+		if( offset < 0 && currentCol + offset + currentStart.Col < 0)
 			{ return false;}
 		
 		for( Position pos : currentPos){
