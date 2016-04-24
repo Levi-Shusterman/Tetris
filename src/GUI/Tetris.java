@@ -173,14 +173,14 @@ public class Tetris extends JFrame {
 				timer.start();
 				break;
 			case KeyEvent.VK_RIGHT:
-				timer.stop();
+//				timer.stop();
 				drawer.Right();
-				timer.start();
+//				timer.start();
 				break;
 			case KeyEvent.VK_LEFT:
-				timer.stop();
+//				timer.stop();
 				drawer.Left();
-				timer.start();
+//				timer.start();
 				break;
 			}
 
