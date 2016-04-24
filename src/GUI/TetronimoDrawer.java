@@ -18,10 +18,24 @@ public class TetronimoDrawer {
 	int ROWS;
 	int COLS;
 	JComponent[][] Array;
-	boolean[][]    Filled;
 	
+	/*
+	 * Indicates what positions are taking up 
+	 * by a tetronimo that has been locked in place
+	 */
+	boolean[][]    Filled; 
+	
+	/*
+	 * Current row and col that a moving tetronimo is on
+	 */
 	int currentRow;
 	int currentCol;
+	
+	/*
+	 * I envision this as keeping track of which rows
+	 * are being filled up. When one of the array indices
+	 * hits COLS in value, that row is filled
+	 */
 	int[] rowComplete;
 	
 	/*
@@ -35,8 +49,8 @@ public class TetronimoDrawer {
 	 */
 	Tetronimo 		 Tet;
 	Vector<Position> currentPos;
-	Position 		 currentMax;
-	Position 	     currentStart;
+	Position 		 currentMax;   // maximum extent of the tetronimo
+	Position 	     currentStart; // Starting position of the tetronimo
 	
 	private Semaphore available;
 	
@@ -49,7 +63,10 @@ public class TetronimoDrawer {
 		
 		Factory = new TetronimoFactory();
 		
+		// Get first tetris piece
 		resetTetrisPiece();
+		
+		
 		
 		Filled = new boolean[ROWS][COLS];
 		for( int i = 0; i < ROWS;i++)
@@ -132,6 +149,7 @@ public class TetronimoDrawer {
 	
 	/**
 	 * Rotate the tetronimo piece clockwise
+	 * Haven't implemented checking if piece can be rotated
 	 */
 	public void Rotate(){
 		try {
@@ -163,6 +181,9 @@ public class TetronimoDrawer {
 		}
 	}
 	
+	/**
+	 * Called by GUI when user hits down key
+	 */
 	public void Down(){
 		Next();
 	}
@@ -171,6 +192,9 @@ public class TetronimoDrawer {
 	 * Undraw the tetris piece in prep for next move
 	 */
 	void undraw(){
+		/*
+		 * Case when a new tetronimo is coming in
+		 */
 		if (currentRow == -1)
 			return;
 		
@@ -238,9 +262,7 @@ public class TetronimoDrawer {
 		return true;
 	}
 	
-	
-	//TODO Change Left and Right to derivatives of Next
-	
+		
 	/**
 	 * Shift the piece right
 	 */

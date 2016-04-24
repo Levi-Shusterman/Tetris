@@ -10,10 +10,14 @@ public class TBlock extends Tetronimo{
 		 */
 		
 		/*
+		 * How a piece is positioned
+		 * 
 		 * 0,0  0,1  0,2
 		 * 1,0  1,1  1,2
 		 * 2,0  2,1  2,2
 		 * 
+		 * Note, some later tetronimos will need
+		 * a 4 by 4 representation
 		 */
 		Left= new Vector<Position>();
 		Left.add(new Position(2,1));
