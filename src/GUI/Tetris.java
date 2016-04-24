@@ -63,7 +63,7 @@ public class Tetris extends JFrame {
 	    timeLabel.setFocusable(false);
 	    helpLabel = new JLabel("Press 'h' for help");
 	  
-	    timer = new Timer(2000, new timerAction());
+	    timer = new Timer(1000, new timerAction());
 	    timer.start();
 	    
 	    timerPanel = new JPanel();
@@ -105,6 +105,7 @@ public class Tetris extends JFrame {
 	    
 	    drawer = new TetronimoDrawer(positions, ROWS, COLS);
 	    
+	    setSize(500,500);
 	    setVisible( true );
 	}
 	
@@ -158,6 +159,9 @@ public class Tetris extends JFrame {
 			case KeyEvent.VK_ESCAPE:
 				timer.stop();
 				System.exit(0);
+			case KeyEvent.VK_DOWN:
+				drawer.Down();
+				break;
 			}
 
 		}
