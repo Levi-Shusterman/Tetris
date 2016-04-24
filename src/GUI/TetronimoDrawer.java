@@ -54,22 +54,37 @@ public class TetronimoDrawer {
 			
 			resetStartPos();
 		}
-
+		
+		
+		/*
+		 * Now you can move down
+		 */
 		undraw();
 		currentRow++;
 		draw();
 		
-		
+		/*
+		 * Check if at the bottom
+		 */
 		if( currentMax.Row + currentRow == ROWS - 1){
 			atBottom = true;
 		}
 		
+		/*
+		 * Check if about to hit another piece
+		 */
+//		if( !canMove() ){
+//			atBottom = true;
+//		}
 	}
 	
 	public void Down(){
 		Next();
 	}
 	
+	/**
+	 * Undraw the tetris piece in prep for next move
+	 */
 	void undraw(){
 		if (currentRow == -1)
 			return;
@@ -79,11 +94,34 @@ public class TetronimoDrawer {
 					Color.black);
 		}
 	}
+	
+	/**
+	 * Draw the tetris piece on the board
+	 */
 	void draw(){
 		
 		for( Position pos : currentPos){
-			Array[currentRow + pos.Row][currentCol + pos.Col].setBackground(
-					Color.yellow);
+				
+				Array[currentRow + pos.Row][currentCol + pos.Col].setBackground(
+						Color.yellow);
 		}
+	}
+	
+	/**
+	 * Checks if the piece can be moved down one more
+	 * 
+	 * @return false if cannot be, true if can be
+	 */
+	private boolean canMove() {
+		for( Position pos : currentPos){
+			
+			if( Array[currentRow + currentMax.Row + 1][currentCol + pos.Col].getBackground()
+					!= Color.black ){
+				
+				return false;
+			}
+		}
+		
+		return true;
 	}
 }

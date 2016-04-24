@@ -142,12 +142,18 @@ public class Tetris extends JFrame {
 				
 				 JOptionPane.showMessageDialog(null, 
 						"H for help\n"+
-						"Left arrow to shift left\n",
+						"Left arrow to shift left\n" +
+						"P to pause\n" +
+						"ESC to exit\n",
 						"How to play Tetris",
 						JOptionPane.INFORMATION_MESSAGE
 						);
 				 timer.start();
 				 break;
+			case 'p': case 'P':
+				timer.stop();
+				helpLabel.setText("Press enter to resume");
+				break;
 			default:
 				break;
 			}
@@ -161,6 +167,10 @@ public class Tetris extends JFrame {
 				System.exit(0);
 			case KeyEvent.VK_DOWN:
 				drawer.Down();
+				break;
+			case KeyEvent.VK_ENTER:
+				helpLabel.setText("Press 'h' for help");
+				timer.start();
 				break;
 			}
 
