@@ -247,11 +247,11 @@ public class TetronimoDrawer {
 //		/*
 //		 * Check if about to hit another piece
 //		 */
-		if(!atBottom){
-			if( !canMoveDown() ){
-				atBottom = true;
-			}
-		}
+//		if(!atBottom){
+//			if( !canMoveDown() ){
+//				atBottom = true;
+//			}
+//		}
 		
 		available.release();
 	}
@@ -301,11 +301,11 @@ public class TetronimoDrawer {
 //		/*
 //		 * Check if about to hit another piece
 //		 */
-		if(!atBottom){
-			if( !canMoveDown() ){
-				atBottom = true;
-			}
-		}
+//		if(!atBottom){
+//			if( !canMoveDown() ){
+//				atBottom = true;
+//			}
+//		}
 		
 		available.release();
 	}
