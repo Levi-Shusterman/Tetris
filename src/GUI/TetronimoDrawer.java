@@ -62,6 +62,11 @@ public class TetronimoDrawer {
 		currentCol = (COLS/2) - 1;
 	}
 	
+	/**
+	 * Called by the Timer. Shifts the
+	 * Tetris piece down by one 
+	 * 
+	 */
 	public void Next(){
 		try {
 			available.acquire();
@@ -115,7 +120,7 @@ public class TetronimoDrawer {
 			Filled[currentRow + pos.Row][currentCol + pos.Col] = true;
 		}
 	}
-
+	
 	public void Down(){
 		Next();
 	}
