@@ -180,6 +180,11 @@ public class TetronimoDrawer {
 	 * @return false if cannot be, true if can be
 	 */
 	private boolean canMoveSide(int offset) {
+		/*
+		 * This case occurs when the event loop reset the piece
+		 */
+		if( currentRow < 0)
+			return false;
 		
 		// Check that you won't overflow if your shifting right
 		if( offset > 0 &&
