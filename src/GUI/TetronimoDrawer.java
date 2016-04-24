@@ -79,6 +79,10 @@ public class TetronimoDrawer {
 	
 	/**
 	 * Get a new piece and reset the position vars
+	 * 
+	 * Richard: In this method, when we acquire a new tetris piece
+	 * because the last one was locked in place, we should prob
+	 * check if a row has been filled up.
 	 */
 	private void resetTetrisPiece(){
 		Tet = Factory.getNewTetronimo();
@@ -173,11 +177,22 @@ public class TetronimoDrawer {
 	/**
 	 * Fill the current spot the tetronimo is at,
 	 * indicating it is done moving
+	 * 
+	 * Richard: This method is called when a tetronimo is locked 
+	 * in place. The filled array represents that that spot is taken up.
+	 * We should probably modify the rowComplete array. I'll fill in some
+	 * commented code
 	 */
 	private void fill() {
 		for( Position pos : currentPos){
 			
 			Filled[currentRow + pos.Row][currentCol + pos.Col] = true;
+			
+			/*
+			 * Indicating that we are filling up a row:
+			 * 
+			 * rowComplete[currentRow + pos.Row]++;
+			 */
 		}
 	}
 	
