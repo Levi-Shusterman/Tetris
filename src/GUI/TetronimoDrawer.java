@@ -175,7 +175,9 @@ public class TetronimoDrawer {
 		return true;
 	}
 	
-
+	
+	//TODO Change Left and Right to derivatives of Next
+	
 	/**
 	 * Shift the piece right
 	 */
