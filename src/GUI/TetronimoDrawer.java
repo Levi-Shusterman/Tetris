@@ -164,14 +164,39 @@ public class TetronimoDrawer {
 		}
 		
 		undraw();
-
+		
+		rotateTet();
+		
+//		if( !canRotate() ){
+//			unRotateTet();
+//		}
+		
+		draw();
+		available.release();
+	}
+	
+//	private void unRotateTet(){
+//		Tet.unRotate();
+//		currentPos = Tet.getCurrentPos();
+//		currentMax = Tet.getMaxExtent();
+//		currentStart = Tet.getStartPos();
+//	}
+	
+	private void rotateTet(){
+		
 		Tet.rotate();
 		currentPos = Tet.getCurrentPos();
 		currentMax = Tet.getMaxExtent();
 		currentStart = Tet.getStartPos();
 		
-		draw();
-		available.release();
+		// Check that you won't overflow to the right
+		if( currentCol + currentMax.Col  > COLS - 1 	)
+			// Can't move to the side
+			{ currentCol--; }
+		
+		// Check that you won't overflow to the left
+		if( currentCol + currentStart.Col < 0)
+			{ currentCol++;}
 	}
 	
 	/**
