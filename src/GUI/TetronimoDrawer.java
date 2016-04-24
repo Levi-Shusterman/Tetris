@@ -97,7 +97,7 @@ public class TetronimoDrawer {
 		 * Check if about to hit another piece
 		 */
 		if(!atBottom){
-			if( !canMove() ){
+			if( !canMoveDown() ){
 				atBottom = true;
 			}
 		}
@@ -150,10 +150,25 @@ public class TetronimoDrawer {
 	 * 
 	 * @return false if cannot be, true if can be
 	 */
-	private boolean canMove() {
+	private boolean canMoveDown() {
 		for( Position pos : currentPos){
 			
 			if( Filled[currentRow + 1 + pos.Row][currentCol + pos.Col])
+				return false;
+		}
+		
+		return true;
+	}
+	
+	/**
+	 * Checks if the piece can be moved to the side
+	 * 
+	 * @return false if cannot be, true if can be
+	 */
+	private boolean canMoveSide(int offset) {
+		for( Position pos : currentPos){
+			
+			if( Filled[currentRow + pos.Row][currentCol + pos.Col])
 				return false;
 		}
 		
@@ -177,7 +192,7 @@ public class TetronimoDrawer {
 			 * if you can shift right
 			 */
 			currentCol++;
-			if( canMove()){
+			if( canMoveSide(1)){
 				
 				// undraw first
 				currentCol--;
@@ -186,6 +201,8 @@ public class TetronimoDrawer {
 				// then shift and draw
 				currentCol++;
 				draw();
+				if( !canMoveDown())
+					fill();
 			}
 		}
 		available.release();
@@ -208,7 +225,7 @@ public class TetronimoDrawer {
 			 * if you can shift left
 			 */
 			currentCol--;
-			if( canMove()){
+			if( canMoveSide(-1)){
 				
 				// undraw first
 				currentCol++;
@@ -217,6 +234,8 @@ public class TetronimoDrawer {
 				// then shift and draw
 				currentCol--;
 				draw();
+				if( !canMoveDown())
+					fill();
 			}
 		}
 		available.release();
