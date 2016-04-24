@@ -3,6 +3,7 @@ package GUI;
 import java.awt.Color;
 import java.util.Arrays;
 import java.util.Vector;
+import java.util.concurrent.Semaphore;
 
 import javax.swing.JComponent;
 
@@ -31,7 +32,10 @@ public class TetronimoDrawer {
 	Vector<Position> currentPos;
 	Position 		 currentMax;
 	
+	private Semaphore available;
+	
 	TetronimoDrawer(JComponent[][] array, int rows, int cols){
+		available = new Semaphore(1);
 		Array = array;
 		ROWS = rows; COLS = cols;
 		
@@ -58,7 +62,14 @@ public class TetronimoDrawer {
 		currentCol = (COLS/2) - 1;
 	}
 	
-	public synchronized void Next(){
+	public void Next(){
+		try {
+			available.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		if( atBottom){
 			fill();
 			
@@ -85,9 +96,13 @@ public class TetronimoDrawer {
 		/*
 		 * Check if about to hit another piece
 		 */
-		if( !canMove() ){
-			atBottom = true;
+		if(!atBottom){
+			if( !canMove() ){
+				atBottom = true;
+			}
 		}
+		
+		available.release();
 	}
 	
 	/**
@@ -150,6 +165,12 @@ public class TetronimoDrawer {
 	 * Shift the piece right
 	 */
 	public void Right() {
+		try {
+			available.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if( currentCol + 1 + currentMax.Col < COLS ){
 			
 			/*
@@ -167,12 +188,20 @@ public class TetronimoDrawer {
 				draw();
 			}
 		}
+		available.release();
 	}
 	
 	/**
 	 * Shift the piece left
 	 */
 	public void Left() {
+		try {
+			available.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		if( currentCol != 0){
 			
 			/*
@@ -190,5 +219,6 @@ public class TetronimoDrawer {
 				draw();
 			}
 		}
+		available.release();
 	}
 }
