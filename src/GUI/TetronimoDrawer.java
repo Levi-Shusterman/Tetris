@@ -1,6 +1,7 @@
 package GUI;
 
 import java.awt.Color;
+import java.util.Arrays;
 import java.util.Vector;
 
 import javax.swing.JComponent;
@@ -14,6 +15,7 @@ public class TetronimoDrawer {
 	int ROWS;
 	int COLS;
 	JComponent[][] Array;
+	boolean[][]    Filled;
 	
 	int currentRow;
 	int currentCol;
@@ -34,25 +36,33 @@ public class TetronimoDrawer {
 		
 		Factory = new TetronimoFactory();
 		
-		atBottom = true;
-		resetStartPos();
-		// to start out game
+		resetTetrisPiece();
+		
+		Filled = new boolean[ROWS][COLS];
+		for( int i = 0; i < ROWS;i++)
+			for(int j = 0; j < COLS; j++)
+				Filled[i][j] = false;
 	}
 	
-	void resetStartPos(){
+	/**
+	 * Get a new piece and reset the position vars
+	 */
+	private void resetTetrisPiece(){
+		Tet = Factory.getNewTetronimo();
+		currentPos = Tet.getCurrentPos();
+		currentMax = Tet.getMaxExtent();
+		
 		currentRow = -1;
 		currentCol = (COLS/2) - 1;
 	}
 	
 	public synchronized void Next(){
 		if( atBottom){
-			Tet = Factory.getNewTetronimo();
-			currentPos = Tet.getCurrentPos();
-			currentMax = Tet.getMaxExtent();
+			fill();
+			
+			resetTetrisPiece();
 			
 			atBottom = false;
-			
-			resetStartPos();
 		}
 		
 		
@@ -73,11 +83,22 @@ public class TetronimoDrawer {
 		/*
 		 * Check if about to hit another piece
 		 */
-//		if( !canMove() ){
-//			atBottom = true;
-//		}
+		if( !canMove() ){
+			atBottom = true;
+		}
 	}
 	
+	/**
+	 * Fill the current spot the tetronimo is at,
+	 * indicating it is done moving
+	 */
+	private void fill() {
+		for( Position pos : currentPos){
+			
+			Filled[currentRow + pos.Row][currentCol + pos.Col] = true;
+		}
+	}
+
 	public void Down(){
 		Next();
 	}
@@ -115,11 +136,8 @@ public class TetronimoDrawer {
 	private boolean canMove() {
 		for( Position pos : currentPos){
 			
-			if( Array[currentRow + currentMax.Row + 1][currentCol + pos.Col].getBackground()
-					!= Color.black ){
-				
+			if( Filled[currentRow + 1 + pos.Row][currentCol + pos.Col])
 				return false;
-			}
 		}
 		
 		return true;
