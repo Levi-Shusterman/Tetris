@@ -3,9 +3,9 @@ package Tetronimoes;
 import java.awt.Color;
 import java.util.Vector;
 
-public class LBlock extends Tetronimo {
-
-	LBlock(){
+public class IBlock extends Tetronimo {
+	
+	IBlock(){
 		/*
 		 * Set up configurations
 		 */
@@ -13,43 +13,45 @@ public class LBlock extends Tetronimo {
 		/*
 		 * How a piece is positioned
 		 * 
-		 * 0,0  0,1  0,2
-		 * 1,0  1,1  1,2
-		 * 2,0  2,1  2,2
+		 * 0,0  0,1  0,2  0,3
+		 * 1,0  1,1  1,2  1,3
+		 * 2,0  2,1  2,2  2,3
+		 * 3,0  3,1  3,2  3,3
 		 * 
 		 * Note, some later tetronimos will need
 		 * a 4 by 4 representation
 		 */
-		Normal= new Vector<Position>();
+		Normal = new Vector<Position>();
 		Normal.add(new Position(0,1));
 		Normal.add(new Position(1,1));
 		Normal.add(new Position(2,1));
-		Normal.add(new Position(2,2));
+		Normal.add(new Position(3,1));
 		
 		Right= new Vector<Position>();
-		Right.add(new Position(2,0));
 		Right.add(new Position(1,0));
 		Right.add(new Position(1,1));
 		Right.add(new Position(1,2));
-		
+		Right.add(new Position(1,3));
+
 		Under = new Vector<Position>();
-		Under.add(new Position(0,1));
 		Under.add(new Position(0,2));
 		Under.add(new Position(1,2));
 		Under.add(new Position(2,2));
+		Under.add(new Position(3,2));
 		
 		Left= new Vector<Position>();
 		Left.add(new Position(2,0));
 		Left.add(new Position(2,1));
 		Left.add(new Position(2,2));
-		Left.add(new Position(1,2));
+		Left.add(new Position(2,3));
 		
+
 		/*
 		 * Tetronimo starts out in normal configuration
 		 */
 		normal();
 		
-		color = Color.YELLOW;
+		color = Color.RED;
 		
 	}
 	
@@ -78,46 +80,82 @@ public class LBlock extends Tetronimo {
 			normal();
 	}
 
+	/*
+	 * How a piece is positioned
+	 * 
+	Visual aid
+	 * 0,0  0,1  0,2  0,3
+	 * 1,0  1,1  1,2  1,3
+	 * 2,0  2,1  2,2  2,3
+	 * 3,0  3,1  3,2  3,3
+	 */ 
 	@Override
 	void normal() {
 		Current = Normal;
-		maxLower = 2;
-		maxRight = 2;
+		maxLower = 3;
+		maxRight = 1;
 		
 		startRow = 0;
 		startCol = 1;
 		
 	}
 
-	
+	/*
+	 * How a piece is positioned
+	 * 
+	Visual aid
+	 * 0,0  0,1  0,2  0,3
+	 * 1,0  1,1  1,2  1,3
+	 * 2,0  2,1  2,2  2,3
+	 * 3,0  3,1  3,2  3,3
+	 */ 
 	@Override
 	void right() {
 		Current = Right;
-		maxLower = 2;
-		maxRight = 2;
+		maxLower = 1;
+		maxRight = 3;
 		
 		startRow = 1;
 		startCol = 0;
 	}
-
+	
+	/*
+	 * How a piece is positioned
+	 * 
+	Visual aid
+	 * 0,0  0,1  0,2  0,3
+	 * 1,0  1,1  1,2  1,3
+	 * 2,0  2,1  2,2  2,3
+	 * 3,0  3,1  3,2  3,3
+	 */ 
 	@Override
 	void under() {
 		// TODO Auto-generated method stub
 		Current = Under;
-		maxLower = 2;
+		maxLower = 3;
 		maxRight = 2;
 		
 		startRow = 0;
-		startCol = 1;
+		startCol = 2;
 	}
 
+	/*
+	 * How a piece is positioned
+	 * 
+	Visual aid
+	 * 0,0  0,1  0,2  0,3
+	 * 1,0  1,1  1,2  1,3
+	 * 2,0  2,1  2,2  2,3
+	 * 3,0  3,1  3,2  3,3
+	 */ 
 	@Override
 	void left() {
 		// TODO Auto-generated method stub
 		Current = Left;
 		maxLower = 2;
-		maxRight = 2;
-		startRow = 1;
+		maxRight = 3;
+		
+		startRow = 2;
 		startCol = 0;
 		
 	}
@@ -127,5 +165,6 @@ public class LBlock extends Tetronimo {
 		// TODO Auto-generated method stub
 		return new Position(startRow, startCol);
 	}
+
 
 }

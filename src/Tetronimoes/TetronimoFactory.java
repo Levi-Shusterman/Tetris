@@ -11,16 +11,18 @@ public class TetronimoFactory {
 	
 	public Tetronimo getNewTetronimo() throws Exception{
 		
-//		return new TBlock();  // For testing
-		switch (rand.nextInt(3)){
-		case 0:
-			return new TBlock();
-		case 1:
-			return new SBlock();
-		case 2:
-			return new LBlock();
-		}
-		throw new Exception("Case statement exited without case");
+		return new IBlock();  // For testing
+//		switch (rand.nextInt(4)){
+//		case 0:
+//			return new TBlock();
+//		case 1:
+//			return new SBlock();
+//		case 2:
+//			return new LBlock();
+//		case 3:
+//			return new IBlock();
+//		}
+//		throw new Exception("Case statement exited without case");
 		
 	}
 }

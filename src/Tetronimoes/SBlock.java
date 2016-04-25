@@ -1,5 +1,6 @@
 package Tetronimoes;
 
+import java.awt.Color;
 import java.util.Vector;
 
 public class SBlock extends Tetronimo {
@@ -47,6 +48,8 @@ public class SBlock extends Tetronimo {
 		 * Tetronimo starts out in normal configuration
 		 */
 		normal();
+		
+		color = Color.PINK;
 		
 	}
 	

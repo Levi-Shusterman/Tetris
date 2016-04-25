@@ -1,5 +1,6 @@
 package Tetronimoes;
 
+import java.awt.Color;
 import java.util.Vector;
 
 /**
@@ -27,6 +28,8 @@ public abstract class Tetronimo {
 	// Beginning points of the block
 	int startRow;
 	int startCol;
+	
+	public Color color;
 	
 	Tetronimo() {
 	}

@@ -80,7 +80,6 @@ public class TetronimoDrawer {
 		try {
 			Tet = Factory.getNewTetronimo();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -113,7 +112,6 @@ public class TetronimoDrawer {
 		try {
 			available.acquire();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -124,8 +122,6 @@ public class TetronimoDrawer {
 			
 			atBottom = false;
 		}
-		
-		
 		
 		/*
 		 * Check if at the bottom
@@ -169,7 +165,6 @@ public class TetronimoDrawer {
 		try {
 			available.acquire();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -261,7 +256,7 @@ public class TetronimoDrawer {
 		for( Position pos : currentPos){
 				
 				Array[currentRow + pos.Row][currentCol + pos.Col].setBackground(
-						Color.yellow);
+						Tet.color);
 		}
 	}
 	
@@ -330,7 +325,6 @@ public class TetronimoDrawer {
 		try {
 			available.acquire();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -369,7 +363,6 @@ public class TetronimoDrawer {
 		try {
 			available.acquire();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -400,3 +393,7 @@ public class TetronimoDrawer {
 		available.release();
 	}
 }
+
+//TODO Add colors to the tetronimos
+//TODO Get the rest of the pieces into the game
+

@@ -1,5 +1,6 @@
 package Tetronimoes;
 
+import java.awt.Color;
 import java.util.Vector;
 
 public class TBlock extends Tetronimo{
@@ -47,6 +48,8 @@ public class TBlock extends Tetronimo{
 		 * Tetronimo starts out in normal configuration
 		 */
 		normal();
+		
+		color = Color.GRAY;
 		
 	}
 	
