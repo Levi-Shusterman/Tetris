@@ -197,7 +197,8 @@ public class TetronimoDrawer {
 		// Check that you won't overflow to the right
 		if( currentCol + currentMax.Col  > COLS - 1 	)
 			// Can't move to the side
-			{ currentCol--; }
+//		{currentCol -= (COLS - 1 - currentCol - currentMax.Col ); }
+		{ currentCol -= currentMax.Col -1; }
 		
 		// Check that you won't overflow to the left
 		if( currentCol + currentStart.Col < 0)
