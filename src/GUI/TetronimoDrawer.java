@@ -181,13 +181,20 @@ public class TetronimoDrawer {
 		draw();
 		available.release();
 	}
-	
-//	private void unRotateTet(){
-//		Tet.unRotate();
-//		currentPos = Tet.getCurrentPos();
-//		currentMax = Tet.getMaxExtent();
-//		currentStart = Tet.getStartPos();
-//	}
+		
+	/**
+	 * Check that you can rotate
+	 * so that you don't hit another piece
+	 */
+	private boolean canRotate(){
+		for( Position pos: currentPos){
+			if(Filled[currentRow + pos.Row][currentCol + pos.Col])
+				return false;
+		}
+		
+		return true;
+		
+	}
 	
 	private void rotateTet(){
 		
