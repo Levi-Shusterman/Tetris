@@ -45,7 +45,7 @@ public class RowRedrawer {
 				Filled[x] = Filled[x-1];
 
 				
-				for( i = 1; i < COLS; i++){
+				for( i = 0; i < COLS; i++){
 					Array[x][i].setBackground(Array[x-1][i].getBackground());
 				}	
 			}catch( ArrayIndexOutOfBoundsException | NullPointerException ex){

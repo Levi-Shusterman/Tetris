@@ -121,6 +121,8 @@ public class TetronimoDrawer {
 			resetTetrisPiece();
 			
 			atBottom = false;
+			available.release();
+			return;
 		}
 		
 		/*
@@ -244,8 +246,16 @@ public class TetronimoDrawer {
 			return;
 		
 		for( Position pos : currentPos){
-			Array[currentRow + pos.Row][currentCol + pos.Col].setBackground(
-					Color.black);
+			try{
+				Array[currentRow + pos.Row][currentCol + pos.Col].setBackground(
+						Color.black);
+			}catch( NullPointerException | ArrayIndexOutOfBoundsException ex){
+				System.out.println("CurrentRow: " + currentRow);
+				System.out.println("CurrentCol: " + currentCol);
+				
+				System.out.println("TetMaxRow: " + currentMax.Row);
+				System.out.println("TetMaxCol: " + currentMax.Col);
+			}
 		}
 	}
 	
@@ -256,8 +266,16 @@ public class TetronimoDrawer {
 		
 		for( Position pos : currentPos){
 				
+			try{
 				Array[currentRow + pos.Row][currentCol + pos.Col].setBackground(
 						Tet.color);
+			}catch( NullPointerException | ArrayIndexOutOfBoundsException ex){
+				System.out.println("CurrentRow: " + currentRow);
+				System.out.println("CurrentCol: " + currentCol);
+				
+				System.out.println("TetMaxRow: " + currentMax.Row);
+				System.out.println("TetMaxCol: " + currentMax.Col);
+			}
 		}
 	}
 	
@@ -394,7 +412,3 @@ public class TetronimoDrawer {
 		available.release();
 	}
 }
-
-//TODO Add colors to the tetronimos
-//TODO Get the rest of the pieces into the game
-

@@ -22,6 +22,7 @@ public class TetronimoFactory {
 		case 3:
 			return new IBlock();
 		}
+		
 		throw new Exception("Case statement exited without case");
 		
 	}
