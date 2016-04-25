@@ -229,12 +229,12 @@ public class TetronimoDrawer {
 			/*
 			 * Indicating that we are filling up a row:
 			 */ 
-			try {
-				rowRedrawer.updateRow(currentRow + pos.Row);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//			try {
+//				rowRedrawer.updateRow(currentRow + pos.Row);
+//			} catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 		}
 	}
 	

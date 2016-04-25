@@ -87,27 +87,36 @@ public class RowRedrawer {
 	  * @param row
 	 * @throws Exception 
 	  */
-	void updateRow(int row) throws Exception{
-		  rowComplete[row]++;
-		  
-		  if( rowComplete[row] > COLS)
-			  throw new Exception("Error in RowRedrawer.updateRow."
-			  		+ "\n Row index " + row + 
-			  		" " + rowComplete[row]);
-	}
-	
+//	void updateRow(int row) throws Exception{
+//		  rowComplete[row]++;
+//		  
+//		  if( rowComplete[row] > COLS)
+//			  throw new Exception("Error in RowRedrawer.updateRow."
+//			  		+ "\n Row index " + row + 
+//			  		" " + rowComplete[row]);
+//	}
+//	
 	/**
 	 * Checks if any rows need to be redrawn
 	 */
 	void checkRowsFilledUp() {
-		for(int i = 0; i < ROWS; i++){
+		for(int row = 0; row < ROWS; row++){
+			
+			/*
+			 * Lets check if the whole row is filled
+			 */
+			int fill = 0;
+			for(int col= 0; col < COLS; col++){
+				if( Array[row][col].getBackground() != Color.black)
+					fill++;
+			}
 			
 			/*
 			 * The row is filled up with tetris pieces
 			 * So we have to do some shifting
 			 */
-			if( rowComplete[i] == COLS){
-				Redraw(i);
+			if( fill == COLS){
+				Redraw(row);
 			}
 		}
 	}
