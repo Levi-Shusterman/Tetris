@@ -41,10 +41,11 @@ public class Tetris extends JFrame {
 	private JButton[][] positions;
 	private GridLayout board;
 	
-	// Timer
+	// Timer and associated labels
 	private JLabel timeLabel;
 	private JLabel helpLabel;
 	private JPanel timerPanel;
+	private JLabel rowsLabel;
 	private Timer timer; 
 	Integer count;
 	
@@ -63,6 +64,7 @@ public class Tetris extends JFrame {
 	    timeLabel = new JLabel();
 	    timeLabel.setFocusable(false);
 	    helpLabel = new JLabel("Press 'h' for help");
+	    rowsLabel = new JLabel("Rows cleared" );
 	  
 	    timer = new Timer(500, new timerAction());
 	    timer.start();
@@ -72,6 +74,7 @@ public class Tetris extends JFrame {
 	    
 	    timerPanel.add(timeLabel, BorderLayout.EAST );
 	    timerPanel.add(helpLabel, BorderLayout.WEST);
+	    timerPanel.add(rowsLabel, BorderLayout.PAGE_END);
 	    container.add(timerPanel, BorderLayout.PAGE_START);
 	    
 	    // Overall layout of the GUI
@@ -104,7 +107,7 @@ public class Tetris extends JFrame {
 	    
 	    this.addKeyListener(new buttonAction());
 	    
-	    drawer = new TetronimoDrawer(positions, ROWS, COLS);
+	    drawer = new TetronimoDrawer(positions, ROWS, COLS,rowsLabel);
 	    
 	    setSize(500,500);
 	    setVisible( true );

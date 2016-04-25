@@ -6,6 +6,7 @@ import java.util.Vector;
 import java.util.concurrent.Semaphore;
 
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 
 import com.sun.glass.events.KeyEvent;
 
@@ -49,7 +50,7 @@ public class TetronimoDrawer {
 	private Semaphore available;
 	
 
-	TetronimoDrawer(JComponent[][] array, int rows, int cols){
+	TetronimoDrawer(JComponent[][] array, int rows, int cols, JLabel rowsLabel){
 		available = new Semaphore(1);
 		Array = array;
 		ROWS = rows; COLS = cols;
@@ -63,7 +64,7 @@ public class TetronimoDrawer {
 				Filled[i][j] = false;
 
 		// Get first tetris piece
-		rowRedrawer = new RowRedrawer(Array, ROWS, COLS, Filled);
+		rowRedrawer = new RowRedrawer(Array, ROWS, COLS, Filled,rowsLabel);
 		resetTetrisPiece();
 		
 	}
@@ -226,15 +227,6 @@ public class TetronimoDrawer {
 				System.out.println("Row: " + currentRow);
 				System.out.println("Col: " + currentCol);
 			}
-			/*
-			 * Indicating that we are filling up a row:
-			 */ 
-//			try {
-//				rowRedrawer.updateRow(currentRow + pos.Row);
-//			} catch (Exception e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
 		}
 	}
 	

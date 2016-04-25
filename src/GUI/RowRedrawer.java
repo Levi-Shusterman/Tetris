@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.Arrays;
 
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 
 public class RowRedrawer {
 	
@@ -11,24 +12,18 @@ public class RowRedrawer {
 	int ROWS;
 	int COLS;
 	
-	/*
-	 * I envision this as keeping track of which rows
-	 * are being filled up. When one of the array indices
-	 * hits COLS in value, that row is filled
-	 */
-	int[] rowComplete;
-	
+	int clearedRows;
 	boolean[][] Filled;
+	JLabel rowLabel;
 	
 	RowRedrawer(JComponent[][] array, int rows, int cols,
-			boolean[][] filled){
+			boolean[][] filled, JLabel rowsLabel){
 		ROWS = rows;
 		COLS = cols;
 		Array = array;
 		Filled = filled;
-		
-		rowComplete = new int[ROWS];
-
+		rowLabel = rowsLabel;
+		clearedRows = 0;
 	}
 	
 	/**
@@ -47,7 +42,6 @@ public class RowRedrawer {
 			int i = 0;
 			try{
 				
-				rowComplete[x] = rowComplete[x-1];
 				Filled[x] = Filled[x-1];
 
 				
@@ -70,32 +64,13 @@ public class RowRedrawer {
 				Array[0][i].setBackground(Color.BLACK);
 			}
 			
-			// and empty of pieces
-			rowComplete[0] = 0;
 			
 			Filled[0] = new boolean[COLS];
 			for( int i = 0; i < COLS; i++)
 				Filled[0][i] = false; 
 			
-			System.out.println(rowComplete[ROWS-1]);
 	}
 	
-	 /**
-	  * Adds one to a row index, when it is ten,
-	  * it is time to redraw
-	  * 
-	  * @param row
-	 * @throws Exception 
-	  */
-//	void updateRow(int row) throws Exception{
-//		  rowComplete[row]++;
-//		  
-//		  if( rowComplete[row] > COLS)
-//			  throw new Exception("Error in RowRedrawer.updateRow."
-//			  		+ "\n Row index " + row + 
-//			  		" " + rowComplete[row]);
-//	}
-//	
 	/**
 	 * Checks if any rows need to be redrawn
 	 */
@@ -116,6 +91,8 @@ public class RowRedrawer {
 			 * So we have to do some shifting
 			 */
 			if( fill == COLS){
+				clearedRows++;
+				rowLabel.setText(Integer.toString(clearedRows));
 				Redraw(row);
 			}
 		}
