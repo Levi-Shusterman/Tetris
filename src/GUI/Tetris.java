@@ -64,7 +64,7 @@ public class Tetris extends JFrame {
 	    timeLabel.setFocusable(false);
 	    helpLabel = new JLabel("Press 'h' for help");
 	  
-	    timer = new Timer(1000, new timerAction());
+	    timer = new Timer(500, new timerAction());
 	    timer.start();
 	    
 	    timerPanel = new JPanel();

@@ -114,7 +114,6 @@ public class LBlock extends Tetronimo {
 		Current = Left;
 		maxLower = 2;
 		maxRight = 2;
-		
 		startRow = 1;
 		startCol = 0;
 		

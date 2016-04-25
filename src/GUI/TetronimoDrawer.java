@@ -18,6 +18,7 @@ public class TetronimoDrawer {
 	int ROWS;
 	int COLS;
 	JComponent[][] Array;
+	RowRedrawer rowRedrawer;
 	
 	/*
 	 * Indicates what positions are taking up 
@@ -30,13 +31,6 @@ public class TetronimoDrawer {
 	 */
 	int currentRow;
 	int currentCol;
-	
-	/*
-	 * I envision this as keeping track of which rows
-	 * are being filled up. When one of the array indices
-	 * hits COLS in value, that row is filled
-	 */
-	int[] rowComplete;
 	
 	/*
 	 * Factory parameters
@@ -63,18 +57,15 @@ public class TetronimoDrawer {
 		
 		Factory = new TetronimoFactory();
 		
-		// Get first tetris piece
-		resetTetrisPiece();
-		
-		
-		
 		Filled = new boolean[ROWS][COLS];
 		for( int i = 0; i < ROWS;i++)
 			for(int j = 0; j < COLS; j++)
 				Filled[i][j] = false;
+
+		// Get first tetris piece
+		rowRedrawer = new RowRedrawer(Array, ROWS, COLS, Filled);
+		resetTetrisPiece();
 		
-		rowComplete = new int[ROWS];
-		Arrays.fill(rowComplete, 0);
 	}
 	
 	/**
@@ -91,14 +82,27 @@ public class TetronimoDrawer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		/*
+		 * See if we have to redraw any rows
+		 */
+		rowRedrawer.checkRowsFilledUp();
+		
+		/*
+		 * Get a new tetris piece
+		 */
 		currentPos = Tet.getCurrentPos();
 		currentMax = Tet.getMaxExtent();
 		currentStart = Tet.getStartPos();
 		
+		/*
+		 * Reset the currrent indices
+		 */
 		currentRow = -1;
 		currentCol = (COLS/2) - 1;
 	}
 	
+
 	/**
 	 * Called by the Timer. Shifts the
 	 * Tetris piece down by one 
@@ -215,14 +219,22 @@ public class TetronimoDrawer {
 	 */
 	private void fill() {
 		for( Position pos : currentPos){
-			
-			Filled[currentRow + pos.Row][currentCol + pos.Col] = true;
-			
+			try{
+				Filled[currentRow + pos.Row][currentCol + pos.Col] = true;
+			}catch( ArrayIndexOutOfBoundsException ex){
+				System.out.println("Out of bounds in fill");
+				System.out.println("Row: " + currentRow);
+				System.out.println("Col: " + currentCol);
+			}
 			/*
 			 * Indicating that we are filling up a row:
-			 * 
-			 * rowComplete[currentRow + pos.Row]++;
-			 */
+			 */ 
+			try {
+				rowRedrawer.updateRow(currentRow + pos.Row);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
