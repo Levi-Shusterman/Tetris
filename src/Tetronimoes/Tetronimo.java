@@ -51,6 +51,15 @@ public abstract class Tetronimo {
 	abstract void right();
 	abstract void under();
 	abstract void left();
-	
-	
+
+	public void unRotate(){
+		if( Current == Normal)
+			left();
+		else if( Current == Right)
+			normal();
+		else if( Current == Under)
+			right();
+		else if( Current == Left)
+			under();
+	}
 }

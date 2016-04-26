@@ -174,10 +174,6 @@ public class TetronimoDrawer {
 		
 		rotateTet();
 		
-//		if( !canRotate() ){
-//			unRotateTet();
-//		}
-		
 		draw();
 		available.release();
 	}
@@ -186,18 +182,29 @@ public class TetronimoDrawer {
 	 * Check that you can rotate
 	 * so that you don't hit another piece
 	 */
-	private boolean canRotate(){
+	private boolean canRotate(){ 
+		if(currentRow<0)
+			return false;
+		
 		for( Position pos: currentPos){
 			if(Filled[currentRow + pos.Row][currentCol + pos.Col])
 				return false;
 		}
 		
 		return true;
-		
 	}
 	
 	private void rotateTet(){
+		/*
+		 * If we find out that we can't rotate later in this method 
+		 * because of other blocks, we will reset to these values
+		 */
+		int cCol = currentCol;
+		int cRow = currentRow;
 		
+		/*
+		 * Rotate and reset position parameters
+		 */
 		Tet.rotate();
 		currentPos = Tet.getCurrentPos();
 		currentMax = Tet.getMaxExtent();
@@ -206,12 +213,24 @@ public class TetronimoDrawer {
 		// Check that you won't overflow to the right
 		if( currentCol + currentMax.Col  > COLS - 1 	)
 			// Can't move to the side
-//		{currentCol -= (COLS - 1 - currentCol - currentMax.Col ); }
 		{ currentCol -= currentMax.Col -1; }
 		
 		// Check that you won't overflow to the left
 		if( currentCol + currentStart.Col < 0)
 			{ currentCol++;}
+		
+		/*
+		 * If you can't rotate, 
+		 * reset everything
+		 */
+		if(!canRotate()){
+			Tet.unRotate();
+			currentPos = Tet.getCurrentPos();
+			currentMax = Tet.getMaxExtent();
+			currentStart = Tet.getStartPos();
+			currentCol = cCol;
+			currentRow = cRow;
+		}
 	}
 	
 	/**
@@ -282,6 +301,10 @@ public class TetronimoDrawer {
 				
 				System.out.println("TetMaxRow: " + currentMax.Row);
 				System.out.println("TetMaxCol: " + currentMax.Col);
+				ex.printStackTrace();
+				///////
+				undraw();
+				return;
 			}
 		}
 	}
@@ -292,12 +315,18 @@ public class TetronimoDrawer {
 	 * @return false if cannot be, true if can be
 	 */
 	private boolean canMoveDown() {
+		/*
+		 * We are at bottom
+		 */
 		if( currentRow + 1 + currentMax.Row > ROWS - 1)
 			return false;
 		
 		for( Position pos : currentPos){
 			
 			try{
+				/*
+				 * Checks if the next row is filled with a different block
+				 */
 				if( Filled[currentRow + 1 + pos.Row][currentCol + pos.Col])
 					return false;
 			}catch( NullPointerException | ArrayIndexOutOfBoundsException ex){
