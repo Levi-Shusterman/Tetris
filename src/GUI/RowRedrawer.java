@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class RowRedrawer {
 	
@@ -95,6 +96,29 @@ public class RowRedrawer {
 				rowLabel.setText(Integer.toString(clearedRows));
 				Redraw(row);
 			}
+		}
+	}
+	
+	/**
+	 * Bring up a message to the user when the game is over
+	 * and show her how many rows she has cleared.
+	 * 
+	 * If she chooses to exit then exit.
+	 * Else redraw and reset the board.
+	 */
+	public void endOfGame() {
+		int yesOrNo = JOptionPane.showOptionDialog(null, 
+				"The game is over.\n" + "You have cleared " + Integer.toString(clearedRows) + " rows.\n" +
+				 "Would you like to play again?",
+				"Game Over", 
+				JOptionPane.YES_NO_OPTION, 
+				JOptionPane.QUESTION_MESSAGE, 
+				null, null, null);
+		
+		if( yesOrNo == 1){
+			System.out.println("One selected");
+		}else if( yesOrNo == 0){
+			System.out.println("Zero selected");
 		}
 	}
 }

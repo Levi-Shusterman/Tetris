@@ -7,6 +7,7 @@ import java.util.concurrent.Semaphore;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import com.sun.glass.events.KeyEvent;
 
@@ -161,7 +162,6 @@ public class TetronimoDrawer {
 	
 	/**
 	 * Rotate the tetronimo piece clockwise
-	 * Haven't implemented checking if piece can be rotated
 	 */
 	public void Rotate(){
 		try {
@@ -237,16 +237,19 @@ public class TetronimoDrawer {
 	 * Fill the current spot the tetronimo is at,
 	 * indicating it is done moving
 	 * 
-	 * Richard: This method is called when a tetronimo is locked 
-	 * in place. The filled array represents that that spot is taken up.
-	 * We should probably modify the rowComplete array. I'll fill in some
-	 * commented code
 	 */
 	private void fill() {
 		for( Position pos : currentPos){
 			try{
 				Filled[currentRow + pos.Row][currentCol + pos.Col] = true;
 			}catch( ArrayIndexOutOfBoundsException ex){
+				/*
+				 * End of game should happen here...
+				 * We may have to redo this though in case other bugs in this section
+				 * pop up that don't correspond to the end of the game
+				 */
+				rowRedrawer.endOfGame();
+				
 				System.out.println("Out of bounds in fill");
 				System.out.println("Row: " + currentRow);
 				System.out.println("Col: " + currentCol);
@@ -335,6 +338,7 @@ public class TetronimoDrawer {
 				
 				System.out.println("TetMaxRow: " + currentMax.Row);
 				System.out.println("TetMaxCol: " + currentMax.Col);
+				ex.printStackTrace();
 			}
 		}
 		

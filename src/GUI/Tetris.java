@@ -27,8 +27,8 @@ public class Tetris extends JFrame {
 	/*
 	 * Game board parameters
 	 */
-	static int ROWS = 20;
-	static int COLS = 10;
+	static int ROWS = 25;
+	static int COLS = 15;
 	
 	/*
 	 * Gui objects 
