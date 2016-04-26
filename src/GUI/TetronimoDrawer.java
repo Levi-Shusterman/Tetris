@@ -178,13 +178,15 @@ public class TetronimoDrawer {
 	 * Rotate the tetronimo piece clockwise
 	 */
 	public void Rotate(){
-//		if(atBottom)
-//			return;
-//		
 		try {
 			available.acquire();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+		}
+		
+		if(atBottom || currentRow == -1){
+			available.release();
+			return;
 		}
 		
 		undraw();
@@ -204,8 +206,14 @@ public class TetronimoDrawer {
 			return false;
 		
 		for( Position pos: currentPos){
-			if(Filled[currentRow + pos.Row][currentCol + pos.Col])
+			try{
+				if(Filled[currentRow + pos.Row][currentCol + pos.Col])
+					return false;
+			}catch( ArrayIndexOutOfBoundsException | NullPointerException ex){
+				System.out.println("In can Rotate");
+				ex.printStackTrace();
 				return false;
+			}
 		}
 		
 		return true;
@@ -471,5 +479,13 @@ public class TetronimoDrawer {
 		}
 
 		available.release();
+	}
+
+	/**
+	 * Error handling method. Releases the semaphore if it gets locked up
+	 */
+	void releaseSemaphore() {
+		if( available.hasQueuedThreads())
+			available.release();
 	}
 }

@@ -146,7 +146,12 @@ public class Tetris extends JFrame {
     	public void actionPerformed(ActionEvent e) {
     		timeLabel.setText(count.toString());
     		count += 1;
-    		drawer.Next();
+    		try{
+    			drawer.Next();
+    		}catch(Exception ex){
+    			ex.printStackTrace();
+    			drawer.releaseSemaphore();
+    		}
     	}
 	}
 	
