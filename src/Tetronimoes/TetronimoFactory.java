@@ -1,6 +1,7 @@
 package Tetronimoes;
 
 import java.util.Random;
+//import java.math.
 
 public class TetronimoFactory {
 	Random rand;
@@ -12,7 +13,7 @@ public class TetronimoFactory {
 	public Tetronimo getNewTetronimo() throws Exception{
 		
 //		return new ZBlock();  // For testing
-		switch (rand.nextInt(8)){
+		switch (rand.nextInt(7)){
 		case 0:
 			return new TBlock();
 		case 1:
@@ -30,9 +31,9 @@ public class TetronimoFactory {
 		/*
 		 * reset the seed once in a while for more randomness
 		 */
-		case 7:
-			rand = new Random(System.currentTimeMillis());
-			return getNewTetronimo();
+//		case 7:
+//			rand = new Random(System.currentTimeMillis());
+//			return getNewTetronimo();
 		}
 		
 		throw new Exception("Case statement exited without case");

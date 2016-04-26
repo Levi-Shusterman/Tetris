@@ -49,7 +49,7 @@ public class JBlock extends Tetronimo {
 		 */
 		normal();
 		
-		color = Color.PINK;
+		color = Color.WHITE;
 		
 	}
 	

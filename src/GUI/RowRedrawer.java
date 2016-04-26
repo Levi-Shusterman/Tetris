@@ -100,7 +100,8 @@ public class RowRedrawer {
 			 */
 			if( fill == COLS){
 				clearedRows++;
-				rowLabel.setText(Integer.toString(clearedRows));
+				rowLabel.setText("   " + Integer.toString(clearedRows) + "    ");
+				
 				Redraw(row);
 			}
 		}
