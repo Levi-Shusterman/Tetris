@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.Arrays;
 
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -15,16 +16,22 @@ public class RowRedrawer {
 	
 	int clearedRows;
 	boolean[][] Filled;
+	
 	JLabel rowLabel;
+	JLabel TimeLabel;
+	Tetris ParentPointer;
 	
 	RowRedrawer(JComponent[][] array, int rows, int cols,
-			boolean[][] filled, JLabel rowsLabel){
+			boolean[][] filled, JLabel rowsLabel, JLabel timeLabel, Tetris parentPointer){
 		ROWS = rows;
 		COLS = cols;
 		Array = array;
 		Filled = filled;
 		rowLabel = rowsLabel;
 		clearedRows = 0;
+		
+		TimeLabel = timeLabel;
+		ParentPointer = parentPointer;
 	}
 	
 	/**
@@ -106,19 +113,35 @@ public class RowRedrawer {
 	 * If she chooses to exit then exit.
 	 * Else redraw and reset the board.
 	 */
-	public void endOfGame() {
-		int yesOrNo = JOptionPane.showOptionDialog(null, 
+	 void endOfGame() {
+		ParentPointer.pauseTimer();
+//		JFrame frame = new JFrame("The game is over");
+//		int yesOrNo = JOptionPane.showConfirmDialog(frame,"yo yo","biyatch",JOptionPane.YES_NO_OPTION);
+		int yesOrNo = JOptionPane.showOptionDialog(ParentPointer, 
 				"The game is over.\n" + "You have cleared " + Integer.toString(clearedRows) + " rows.\n" +
 				 "Would you like to play again?",
 				"Game Over", 
 				JOptionPane.YES_NO_OPTION, 
-				JOptionPane.QUESTION_MESSAGE, 
+				JOptionPane.PLAIN_MESSAGE, 
 				null, null, null);
+//		JOptionPane.focu
 		
 		if( yesOrNo == 1){
-			System.out.println("One selected");
+			System.exit(0);
 		}else if( yesOrNo == 0){
-			System.out.println("Zero selected");
+			resetBoard();
 		}
+		ParentPointer.startTimer();
+	}
+	
+	void resetBoard(){
+		
+		ParentPointer.resetGameAndTimer();
+		for( int i = 0; i < ROWS; i++)
+			for( int j = 0; j < COLS; j++){
+				Filled[i][j] = false;
+				Array[i][j].setBackground(Color.black);
+			}
+				
 	}
 }

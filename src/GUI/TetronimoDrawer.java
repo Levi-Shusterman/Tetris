@@ -6,6 +6,7 @@ import java.util.Vector;
 import java.util.concurrent.Semaphore;
 
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -51,7 +52,8 @@ public class TetronimoDrawer {
 	private Semaphore available;
 	
 
-	TetronimoDrawer(JComponent[][] array, int rows, int cols, JLabel rowsLabel){
+	TetronimoDrawer(JComponent[][] array, int rows, int cols, JLabel rowsLabel,
+			JLabel timeLabel, Tetris parentPointer){
 		available = new Semaphore(1);
 		Array = array;
 		ROWS = rows; COLS = cols;
@@ -65,7 +67,7 @@ public class TetronimoDrawer {
 				Filled[i][j] = false;
 
 		// Get first tetris piece
-		rowRedrawer = new RowRedrawer(Array, ROWS, COLS, Filled,rowsLabel);
+		rowRedrawer = new RowRedrawer(Array, ROWS, COLS, Filled,rowsLabel,timeLabel,parentPointer);
 		resetTetrisPiece();
 		
 	}
@@ -248,11 +250,14 @@ public class TetronimoDrawer {
 				 * We may have to redo this though in case other bugs in this section
 				 * pop up that don't correspond to the end of the game
 				 */
+				ex.printStackTrace();
+				System.out.println(atBottom);
+				atBottom = false;
 				rowRedrawer.endOfGame();
 				
-				System.out.println("Out of bounds in fill");
-				System.out.println("Row: " + currentRow);
-				System.out.println("Col: " + currentCol);
+//				System.out.println("Out of bounds in fill");
+//				System.out.println("Row: " + currentRow);
+//				System.out.println("Col: " + currentCol);
 			}
 		}
 	}

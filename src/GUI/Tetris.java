@@ -107,7 +107,7 @@ public class Tetris extends JFrame {
 	    
 	    this.addKeyListener(new buttonAction());
 	    
-	    drawer = new TetronimoDrawer(positions, ROWS, COLS,rowsLabel);
+	    drawer = new TetronimoDrawer(positions, ROWS, COLS,rowsLabel,timeLabel,this);
 	    
 	    setSize(500,500);
 	    setVisible( true );
@@ -118,6 +118,25 @@ public class Tetris extends JFrame {
 	    gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
+	
+	/*
+	 * Timer and reset methods
+	 */
+	void pauseTimer(){
+		timer.stop();
+	}
+	
+	void resetGameAndTimer(){
+		count = 0;
+		timeLabel.setText("Current time");
+		rowsLabel.setText("Rows cleared");
+	}
+	
+	void startTimer(){
+		timer.start();
+	}
+	
+	
 	
 	private class timerAction implements ActionListener{
 		timerAction(){
