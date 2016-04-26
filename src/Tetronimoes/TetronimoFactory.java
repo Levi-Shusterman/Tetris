@@ -11,7 +11,7 @@ public class TetronimoFactory {
 	
 	public Tetronimo getNewTetronimo() throws Exception{
 		
-//		return new JBlock();  // For testing
+//		return new IBlock();  // For testing
 		switch (rand.nextInt(6)){
 		case 0:
 			return new TBlock();
@@ -20,7 +20,7 @@ public class TetronimoFactory {
 		case 2:
 			return new LBlock();
 		case 3:
-			return new IBlock();
+			return new IBlock(); 
 		case 4:
 			return new OBlock();
 		case 5:
