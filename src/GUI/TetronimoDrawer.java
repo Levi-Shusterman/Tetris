@@ -117,7 +117,19 @@ public class TetronimoDrawer {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		/*
+		 * Indication of game over
+		 */
+		if( atBottom && currentRow == -1){
+			atBottom = false;
+			rowRedrawer.endOfGame();
+			available.release();
+			return;
+		}
 		
+		/*
+		 * Tetronimo can no longer move
+		 */
 		if( atBottom){
 			fill();
 			
@@ -153,7 +165,7 @@ public class TetronimoDrawer {
 		}
 		
 		/*
-		 * Now you can move down
+		 * Now you can move down if you haven't hit anything
 		 */
 		undraw();
 		currentRow++;
@@ -166,6 +178,9 @@ public class TetronimoDrawer {
 	 * Rotate the tetronimo piece clockwise
 	 */
 	public void Rotate(){
+//		if(atBottom)
+//			return;
+//		
 		try {
 			available.acquire();
 		} catch (InterruptedException e) {
@@ -241,6 +256,7 @@ public class TetronimoDrawer {
 	 * 
 	 */
 	private void fill() {
+		
 		for( Position pos : currentPos){
 			try{
 				Filled[currentRow + pos.Row][currentCol + pos.Col] = true;
@@ -252,8 +268,8 @@ public class TetronimoDrawer {
 				 */
 				ex.printStackTrace();
 				System.out.println(atBottom);
-				atBottom = false;
-				rowRedrawer.endOfGame();
+//				atBottom = false;
+//				rowRedrawer.endOfGame();
 				
 //				System.out.println("Out of bounds in fill");
 //				System.out.println("Row: " + currentRow);

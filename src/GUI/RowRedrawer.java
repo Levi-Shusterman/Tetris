@@ -115,8 +115,6 @@ public class RowRedrawer {
 	 */
 	 void endOfGame() {
 		ParentPointer.pauseTimer();
-//		JFrame frame = new JFrame("The game is over");
-//		int yesOrNo = JOptionPane.showConfirmDialog(frame,"yo yo","biyatch",JOptionPane.YES_NO_OPTION);
 		int yesOrNo = JOptionPane.showOptionDialog(ParentPointer, 
 				"The game is over.\n" + "You have cleared " + Integer.toString(clearedRows) + " rows.\n" +
 				 "Would you like to play again?",
@@ -124,7 +122,6 @@ public class RowRedrawer {
 				JOptionPane.YES_NO_OPTION, 
 				JOptionPane.PLAIN_MESSAGE, 
 				null, null, null);
-//		JOptionPane.focu
 		
 		if( yesOrNo == 1){
 			System.exit(0);
@@ -136,6 +133,7 @@ public class RowRedrawer {
 	
 	void resetBoard(){
 		
+		clearedRows = 0;
 		ParentPointer.resetGameAndTimer();
 		for( int i = 0; i < ROWS; i++)
 			for( int j = 0; j < COLS; j++){
