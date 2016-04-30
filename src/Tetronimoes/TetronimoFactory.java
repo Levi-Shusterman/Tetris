@@ -31,9 +31,6 @@ public class TetronimoFactory {
 		/*
 		 * reset the seed once in a while for more randomness
 		 */
-//		case 7:
-//			rand = new Random(System.currentTimeMillis());
-//			return getNewTetronimo();
 		}
 		
 		throw new Exception("Case statement exited without case");

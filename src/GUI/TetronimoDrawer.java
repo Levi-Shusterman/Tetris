@@ -14,6 +14,19 @@ import com.sun.glass.events.KeyEvent;
 
 import Tetronimoes.*;
 
+/*
+this class handles a number of things. It handles rotation of blocks, handles error checking to see if it goes out of bounds, uses semaphores for each piece,
+and also "stops" the piece once it is in the correct spot. Handles how pieces are introduced onebyone.
+There is a reset TetrisPiece method
+that will take the current variables and update them so that we can use a new piece
+once the previous piece is laid down. Also handles the case where pieces need to stop
+moving once they’re locked into place. The rest of the class handles how the pieces are
+drawn and also checks the boundaries of the pieces as well. For example, in the given
+position, can it move left/right/under/up without conflicting with the border or other
+pieces?
+
+ */
+
 public class TetronimoDrawer {
 	/*
 	 * Array on which to draw
@@ -276,12 +289,6 @@ public class TetronimoDrawer {
 				 */
 				ex.printStackTrace();
 				System.out.println(atBottom);
-//				atBottom = false;
-//				rowRedrawer.endOfGame();
-				
-//				System.out.println("Out of bounds in fill");
-//				System.out.println("Row: " + currentRow);
-//				System.out.println("Col: " + currentCol);
 			}
 		}
 	}
@@ -334,7 +341,7 @@ public class TetronimoDrawer {
 				System.out.println("TetMaxRow: " + currentMax.Row);
 				System.out.println("TetMaxCol: " + currentMax.Col);
 				ex.printStackTrace();
-				///////
+
 				undraw();
 				return;
 			}
@@ -386,7 +393,7 @@ public class TetronimoDrawer {
 		if( currentRow < 0)
 			return false;
 		
-		// Check that you won't overflow if your shifting right
+		// Check that you won't overflow if you're shifting right
 		if( offset > 0 &&
 				currentCol + currentMax.Col + offset > COLS - 1 	)
 			// Can't move to the side

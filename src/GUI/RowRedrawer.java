@@ -8,6 +8,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+/*
+This class handles how rows are labeled as being filled, redrawing rows, and also setting up the game if the new/reset button is pressed.
+How we handle clearing rows is by basically copying the row above it to the current row. This continues for each and every row.
+Of course, this only happens if the row is "filled".
+ */
+
 public class RowRedrawer {
 	
 	JComponent[][] Array;

@@ -22,6 +22,14 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.Timer;
 
+
+/*
+The tetris class is where most of the game functionality will take place. In terms of
+functionality, a lot of the things, such as timer, score, lines cleared, etc, will be kept track
+here. More importantly, the board will be set up here, along with each tile being
+initialized. The action handler and key adapter are both also implemented here. All the
+key events for escape, arrow keys, enter, and ‘p’ are also implemented here.
+ */
 public class Tetris extends JFrame {
 
 	/*
@@ -211,14 +219,14 @@ public class Tetris extends JFrame {
 				timer.start();
 				break;
 			case KeyEvent.VK_RIGHT:
-				// timer.stop();
+
 				drawer.Right();
-				// timer.start();
+
 				break;
 			case KeyEvent.VK_LEFT:
-				// timer.stop();
+
 				drawer.Left();
-				// timer.start();
+
 				break;
 			case KeyEvent.VK_UP:
 				drawer.Rotate();

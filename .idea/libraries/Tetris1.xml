@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Tetris1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/Tetris.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
